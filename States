@@ -1,0 +1,263 @@
+"""
+Author: Ryan B
+This Project was created for school purposes
+Disclaimer: if you copy this in your school project please reference it so you do not get 
+hit for plaigirism and I hope you can learn from my project.
+
+This python program will prompt the user using a menu style class. It will include options
+to Display all states, search for a specific state, proivide a bar graph for the top 5 population,
+and update the states population, followed by the sys.exit().
+"""
+
+#Import necessary methods
+import datetime
+import sys
+from PIL import Image
+import matplotlib.pyplot as plt
+
+#Creates the database for states as a dictionary of values
+states=[{"state": "Alabama", "capital": "Montgomery",
+         "population": 5074296, "stateflower": "Camellia"},
+        {"state": "Alaska", "capital": "Juneau",
+         "population": 733583, "stateflower": "Alpine Forget-me-not"},
+        {"state": "Arizona", "capital": "Phoenix",
+         "population": 7359197, "stateflower": "Saguaro Cactus Blossom"},
+        {"state": "Arkansas", "capital": "Little Rock",
+         "population": 3045637, "stateflower": "Apple Blossom"},
+        {"state": "California", "capital": "Sacramento",
+         "population": 39029342, "stateflower": "California Poppy"},
+        {"state": "Colorado", "capital": "Denver",
+         "population": 5839926, "stateflower": "Rocky Mountain Columbine"},
+        {"state": "Connecticut", "capital": "Hartford",
+         "population": 3626205, "stateflower": "Mountain Laurel"},
+        {"state": "Deleware", "capital": "Dover",
+         "population": 1018396, "stateflower": "Peach Blossom"},
+        {"state": "Florida", "capital": "Tallahassee",
+         "population": 22244823, "stateflower": "Orango Blossom"},
+        {"state": "Georgia", "capital": "Atlanta",
+         "population": 10912876, "stateflower": "Cherokee Rose"},
+        {"state": "Hawaii", "capital": "Honolulu",
+         "population": 1440196, "stateflower": "Hibiscus"},
+        {"state": "Idaho", "capital": "Boise",
+         "population": 1939033, "stateflower": "Syringa"},
+        {"state": "Illinois", "capital": "Springfield",
+         "population": 12582032, "stateflower": "Violet"},
+        {"state": "Indiana", "capital": "Indianapolis",
+         "population": 6833037, "stateflower": "Peony"},
+        {"state": "Iowa", "capital": "Des Moines",
+         "population": 3200517, "stateflower": "Wild Rose"},
+        {"state": "Kansas", "capital": "Topeka",
+         "population": 2937150, "stateflower": "Sunflower"},
+        {"state": "Kentucky", "capital": "Franfort",
+         "population": 4512310, "stateflower": "Goldenrod"},
+        {"state": "Louisiana", "capital": "Baton Rouge",
+         "population": 4590241, "stateflower": "Magnolia"},
+        {"state": "Maine", "capital": "Augusta",
+         "population": 1385340, "stateflower": "White Pine"},
+        {"state": "Maryland", "capital": "Annapolis",
+         "population": 6164660, "stateflower": "Black-eyed Susan"},
+        {"state": "Massachusetts", "capital": "Boston",
+         "population": 6981974, "stateflower": "Mayflower"},
+        {"state": "Michigan", "capital": "Lansing",
+         "population": 10034113, "stateflower": "Apple Blossom"},
+        {"state": "Minnesota", "capital": "St. Paul",
+         "population": 5717184, "stateflower": "Pink and White Lady's Slipper"},
+        {"state": "Mississippi", "capital": "Jackson",
+         "population": 2940057, "stateflower": "Magnolia"},
+        {"state": "Missouri", "capital": "Jefferson City",
+         "population": 6177957, "stateflower": "Hawthorn"},
+        {"state": "Montana", "capital": "Helena",
+         "population": 1122867, "stateflower": "Bitterroot"},
+        {"state": "Nebraska", "capital": "Lincoln",
+         "population": 1967923, "stateflower": "Goldenrod"},
+        {"state": "Nevada", "capital": "Carson City",
+         "population": 3177772, "stateflower": "Sagebrush"},
+        {"state": "New Hampshire", "capital": "Concord",
+         "population": 1395231, "stateflower": "Purple Lilac"},
+        {"state": "New Jersey", "capital": "Trenton",
+         "population": 9261699, "stateflower": "Violet"},
+        {"state": "New Mexico", "capital": "Santa Fe",
+         "population": 2113344, "stateflower": "Yucca Flower"},
+        {"state": "New York", "capital": "Albany",
+         "population": 19677151, "stateflower": "Rose"},
+        {"state": "North Carolina", "capital": "Raleigh",
+         "population": 10698973, "stateflower": "Flowering Dogwood"},
+        {"state": "North Dakota", "capital": "Bismarck",
+         "population": 779261, "stateflower": "Wild Prairie Rose"},
+        {"state": "Ohio", "capital": "Columbus",
+         "population": 11756058, "stateflower": "Scarlet Carnation"},
+        {"state": "Oklahoma", "capital": "Oklahoma City",
+         "population": 4019800, "stateflower": "Oklahoma Rose"},
+        {"state": "Oregon", "capital": "Salem",
+         "population": 4240137, "stateflower": "Oregon Grape"},
+        {"state": "Pennsylvania", "capital": "Harrisburg",
+         "population": 12972008, "stateflower": "Mountain Laurel"},
+        {"state": "Rhode Island", "capital": "Providence",
+         "population": 1093734, "stateflower": "Violet"},
+        {"state": "South Carolina", "capital": "Columbia",
+         "population": 5282634, "stateflower": "Yellow jessamine"},
+        {"state": "South Dakota", "capital": "Pierre",
+         "population": 909824, "stateflower": "Pasque Flower"},
+        {"state": "Tennessee", "capital": "Nashville",
+         "population": 7051339, "stateflower": "Iris"},
+        {"state": "Texas", "capital": "Austin",
+         "population": 30029572, "stateflower": "Blue Bonnet"},
+        {"state": "Utah", "capital": "Salt Lake City",
+         "population": 3380800, "stateflower": "Sego Lily"},
+        {"state": "Vermont", "capital": "Montpelier",
+         "population": 647064, "stateflower": "Red Clover"},
+        {"state": "Virginia", "capital": "Richmond",
+         "population": 8683619, "stateflower": "American Dogwood"},
+        {"state": "Washington", "capital": "Olympia",
+         "population": 7785786, "stateflower": "Western rhododendron"},
+        {"state": "West Virginia", "capital": "Charleston",
+         "population": 1775156, "stateflower": "rhododendron"},
+        {"state": "Wisconsin", "capital": "Madison",
+         "population": 5892539, "stateflower": "Wood Violet"},
+        {"state": "Wyoming", "capital": "Cheyenne",
+         "population": 581381, "stateflower": "Indian Paintbrush"}]
+
+
+#Prints all States
+def printall(p):
+    """Will Print out all states with Name, Capital, Population, and State Flower"""
+    #Prints Title on first Line
+    print("\nState", "Capital", "Population", "State Flower", sep=" - ", end="\n\n")
+    for state in p:#Will print in a loop until it reads all states
+        print(state["state"], state["capital"], f'{state["population"]:,}', state["stateflower"], sep=" - ", end="\n\n")
+
+
+def printimage(state):
+    """This will print the image of the states flower using built in python3 image viewer"""
+    img = Image.open("../Flowers/"+state+".jpeg")
+    img.show()
+    return img
+
+
+def statesearch(s):
+    """This will be the method for searching for states"""
+    while True:#create loop
+        try:
+            #Will prompt user for input and capitalize first letter
+            state = (input("\nPlease enter the state you would like to search for: ").title())
+            if state not in [s.get('state', state) for s in s]:#validates input
+                print('Invalid State, please try again.')
+            else:
+                #Will search all states values for the name of the state,
+                #when found will end the next loop and return the state
+                search = next((value for value in s if value ['state'] == state), None)
+                #Prints the state that was searched for
+                print("\n\tState:", search["state"], "\n\tCapital:", search["capital"], "\n\tPopulation:", f'{search["population"]:,}', "\n\tState Flower:", search["stateflower"])
+                printimage(state)#Prints image
+                break#exits loop
+        except ValueError:
+            print('\nInvalid input try again.\n')#throws value error if it arises
+
+#creates a bar graph
+def bargraph(graph):
+    """Will create a bargraph of the top 5 populations"""
+    maxlist = sorted(graph, key=lambda x:(x['population']*-1))#Sorts state dic by population
+    top5 = maxlist[0:5]#creates a new list with only the top 5 by population
+    xlist = []#creates an open array to insert plot points
+    ylist= []# same as ^
+    for state in top5:#adds the states and populations to the above lists
+        x = state['state']
+        y = state['population']
+        xlist.append(x)#uses append to add to list
+        ylist.append(y)
+    plt.bar(xlist, ylist)#plots the values from the list
+    plt.xlabel('State')#adds labels
+    plt.ylabel('Population')
+    for i, ylist in enumerate(ylist):#loop to add pop on bar and center it with horizontal alignment
+        plt.text(i, ylist, ylist, ha = 'center')#code taken from pylint to correct for i loop
+    plt.show()#shows bar graph in seperate window
+
+
+#Allows for updating population
+def changepopulation(pop):
+    """This will be the method for changing the population of the state"""
+    while True:#create loop
+        #Will prompt user for input and capitalize first letter
+        state = (input("\nPlease enter the state you would like to search for: ").title())
+        if state not in [pop.get('state', state) for pop in pop]:#validates input
+            print('Invalid State, please try again.')
+        else:
+            #Will search all states values for the name of the state,
+            #when found will end the next loop and return the state
+            search = next((value for value in pop if value ['state'] == state), None)
+            #Prints the state that was searched for
+            print("The current Population in",
+                    search['state'], "is:", f'{search['population']:,}')
+            while True:
+                try:
+                    newpop = int(input('Please enter new population with no "," or "." :'))
+                    if newpop <= 0:
+                        print('Population must me an integer greater than 0. Please try again.')
+                    else:
+                        break
+                except ValueError:
+                    print("Population must be an integer, please try again.")
+            search['population'] = newpop
+            print("The new Population in",
+                    search['state'], "is:", f'{search['population']:,}')
+            return search
+
+#Will exit the program
+def exit_program():
+    """Exits Program when selected from the menu"""
+    print("\nThank you for visiting and using this program.")
+    #will import the current time
+    time = datetime.datetime.now()
+    #good morning if hour is below noon
+    if time.hour < 12:
+        print("I hope you have a wonderful morning!\n")
+    #good afternoon if hour is between noon and 1700
+    elif time.hour <=17:
+        print("I hope you have a wonderful afternoon!\n")
+    #good evening from 1800 to 2359
+    else:
+        print("I hope you have a wonderful evening!\n")
+    #exits Program
+    sys.exit()
+
+#Will be the main menu
+def menu(m):
+    """Creates a menu for user to make selections of functions or quit program"""
+    print("\n\n\tHello welcome to SDEV 300 Lab 3. Thank you for coming, and please enjoy.")
+    while True:#loop for selection process
+        try:
+            print("\n\t\t\t\tMain Menu\n")
+            print("\t\t1. Display all U.S. States in Alphabetical order along", end="")
+            print(" with the Capital, State Population, and Flower.")
+            print("\t\t2. Search for a specific State and display the appropriate ", end = "")
+            print("Capital name, State Population, and an image of the associated State Flower.")
+            print("\t\t3. Provide a Bar graph of the top 5 populated", end="")
+            print(" States showing their overall poulation.")
+            print("\t\t4. Update the overall population for a specific State.")
+            print("\t\t5. Exit the Program.\n")
+            #prompt user for selection
+            selection = int(input("\t\tPlease select an option from the list above, i.e. 1 or 2\t"))
+            #start selection if statements
+            if selection == 1:
+                #Runs Print all States function
+                printall(m)
+            elif selection == 2:
+                #Runs State Search Function
+                statesearch(m)
+            elif selection == 3:
+                #Runs the Bar Graph Function
+                bargraph(m)
+            elif selection == 4:
+                #Runs the Update Population Function
+                changepopulation(m)
+            elif selection == 5:
+                #Runs the System exit function
+                exit_program()
+            else:
+                print("\n**********Please enter a valid answer. Please try again.*********\n")
+        except ValueError:
+            print('Must be a valid integer. Please Try Again.')
+
+#Runs Program
+menu(states)
+#End of file
